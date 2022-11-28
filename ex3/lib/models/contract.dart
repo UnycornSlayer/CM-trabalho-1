@@ -4,10 +4,10 @@ import 'package:ex3/models/person.dart';
 class Contract {
   DateTime expirationDate;
   double anualFee;
-  Person taker;
-  Insurer insurer;
-  String insured;
-  String type;
+  Person taker; // person whos wants the insurance
+  Insurer insurer; // company that issues the insurance
+  String insured; // thing / who is insured , EX: Car in car insuranse
+  String type; // car insurance or life insurance or etc...
 
   Contract(this.type, this.expirationDate, this.anualFee, this.insured,
       this.insurer, this.taker);

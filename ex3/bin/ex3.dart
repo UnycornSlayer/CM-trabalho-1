@@ -1,3 +1,4 @@
+import 'package:ex3/data/contracts.dart';
 import 'package:ex3/data/insurers.dart';
 import 'package:ex3/exceptions/already_existing_item_exception.dart';
 import 'package:ex3/exceptions/doesnt_exist_on_list_exception.dart';
@@ -51,28 +52,44 @@ void main(List<String> arguments) {
     Person(2, 'Telmo', 23, 'Rua da esquerda', [])
   ];
 
-  List<Contract> contracts = [
-    Contract(0, 'health', DateTime(2023 - 5 - 15), 8000, clients[0].name,
-        insurers.list[0], clients[0]),
-    Contract(1, 'car', DateTime(2024 - 1 - 1), 10000, 'BMW Series 1',
-        insurers.list[1], clients[1]),
-    Contract(2, 'life', DateTime(2022 - 12 - 31), 12000, clients[0].name,
-        insurers.list[2], clients[2]),
-    Contract(3, 'car', DateTime(2024 - 02 - 22), 11000, 'OPEL Corsa',
-        insurers.list[2], clients[2])
-  ];
+  Contracts contracts = Contracts();
+  try {
+    contracts.add(
+      Contract(0, 'health', DateTime(2023 - 5 - 15), 8000, clients[0].name,
+          insurers.list[0], clients[0]),
+    );
+    contracts.add(
+      Contract(1, 'car', DateTime(2024 - 1 - 1), 10000, 'BMW Series 1',
+          insurers.list[1], clients[1]),
+    );
+    contracts.add(
+      Contract(2, 'life', DateTime(2022 - 12 - 31), 12000, clients[0].name,
+          insurers.list[2], clients[2]),
+    );
+    contracts.add(
+      Contract(3, 'car', DateTime(2024 - 02 - 22), 11000, 'OPEL Corsa',
+          insurers.list[2], clients[2]),
+    );
+  } on AlreadyExistingItemException catch (e, f) {
+    print(e.errorMessage());
+    print(f);
+  } on DoesntExistOnListException catch (e, f) {
+    print(e.errorMessage());
+    print(f);
+  }
 
-  insurers.addContract(contracts[0], insurers.list[0]);
-  insurers.addContract(contracts[1], insurers.list[1]);
-  insurers.addContract(contracts[2], insurers.list[2]);
-  insurers.addContract(contracts[3], insurers.list[2]);
+  insurers.addContract(contracts.list[0], insurers.list[0]);
+  insurers.addContract(contracts.list[1], insurers.list[1]);
+  insurers.addContract(contracts.list[2], insurers.list[2]);
+  insurers.addContract(contracts.list[3], insurers.list[2]);
 
   // print(insurers.list);
   // print(
   //     'Quantity of active contracts: ${insurers.quantityActiveContracts(insurers.list[0])}');
   // print('Average income: ${insurers.averageIncome(insurers.list[0])}');
 
-  insurers.averageIncomePerType(insurers, 'car');
+  // insurers.averageIncomePerType(insurers, 'car');
+  // insurers.incomeReportPerInsurer(insurers);
 }
 
 void printLists(List list) {

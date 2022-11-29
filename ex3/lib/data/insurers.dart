@@ -80,4 +80,22 @@ class Insurers {
     print('Quantity of active contracts with type: $type => $counter');
     print('Average income: ${sum / counter}');
   }
+
+  void incomeReportPerInsurer(Insurers insurers) {
+    // TODO: Se não houver contratos de uma seguradora, não mostrar nada relativo a essa seguradora
+
+    print('------------Income report per Insurer------------');
+    for (var insurer in insurers.list) {
+      var totalIncomePerInsurer = 0.0;
+      print('\n\x1b[1mInsurer: ${insurer.name}\x1b[0m');
+      for (var contract in insurer.activeContracts) {
+        totalIncomePerInsurer += contract.anualFee;
+        print(
+            "Contract with: ${contract.taker.name}, Type: ${contract.type}, Fee: ${contract.anualFee}€.");
+      }
+      print(
+          '\x1b[1mInsurer ${insurer.name} has a total income of $totalIncomePerInsurer€.\x1b[0m');
+    }
+    print('------------------End of report------------------');
+  }
 }

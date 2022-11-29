@@ -130,6 +130,7 @@ void main(List<String> arguments) {
         break;
 
       case 6:
+        //TODO : manage contracts menu
         // contracts = manageContracts(contracts);
         break;
       default:
@@ -173,7 +174,7 @@ Persons manageClients(Persons clients) {
         break;
 
       case 2:
-        // List every client
+        // TODO:List every client
         print('Type Id of the client to update: ');
         int id = int.parse(stdin.readLineSync()!);
         var index = clients.list.indexWhere((c) => c.id == id);
@@ -188,7 +189,7 @@ Persons manageClients(Persons clients) {
         break;
 
       case 3:
-        // List every client
+        // TODO:List every client
         print('Type Id of the client to delete: ');
         int id = int.parse(stdin.readLineSync()!);
         var index = clients.list.indexWhere((c) => c.id == id);
@@ -196,7 +197,7 @@ Persons manageClients(Persons clients) {
         break;
 
       case 4:
-        // list every client
+        // TODO:list every client
         break;
 
       case 5:
@@ -232,7 +233,7 @@ Insurers manageInsurers(Insurers insurers) {
         break;
 
       case 2:
-        // List every insurer
+        // TODO: List every insurer
         print('Type Id of the insurer to update: ');
         int id = int.parse(stdin.readLineSync()!);
         var index = insurers.list.indexWhere((c) => c.id == id);
@@ -245,7 +246,7 @@ Insurers manageInsurers(Insurers insurers) {
         break;
 
       case 3:
-        // List every Insurer
+        // TODO: List every Insurer
         print('Type Id of the insurer to delete: ');
         int id = int.parse(stdin.readLineSync()!);
         var index = insurers.list.indexWhere((i) => i.id == id);
@@ -253,7 +254,7 @@ Insurers manageInsurers(Insurers insurers) {
         break;
 
       case 4:
-        // List every insurer
+        // TODO: List every insurer
         break;
 
       case 5:

@@ -1,5 +1,6 @@
 import 'package:ex3/data/insurers.dart';
 import 'package:ex3/exceptions/already_existing_item_exception.dart';
+import 'package:ex3/exceptions/cannot_delete_element_with_active_contracts.dart';
 import 'package:ex3/exceptions/doesnt_exist_on_list_exception.dart';
 import 'package:ex3/models/contract.dart';
 import 'package:ex3/models/insurer.dart';
@@ -41,6 +42,9 @@ void main(List<String> arguments) {
     print(e.errorMessage());
     print(f);
   } on DoesntExistOnListException catch (e, f) {
+    print(e.errorMessage());
+    print(f);
+  } on CannotDeleteElementWithActiveContracts catch (e, f) {
     print(e.errorMessage());
     print(f);
   }

@@ -1,3 +1,4 @@
+import 'package:ex3/exceptions/cannot_delete_element_with_active_contracts.dart';
 import 'package:ex3/models/contract.dart';
 
 import '../exceptions/already_existing_item_exception.dart';
@@ -21,7 +22,6 @@ class Insurers {
     int index = _insurers.indexWhere((i) => i.id == insurer.id);
 
     if (index == -1) {
-      print(index);
       throw DoesntExistOnListException(
           'data/students[_students list]', insurer.id.toString());
     }
@@ -30,11 +30,13 @@ class Insurers {
 
   void delete(Insurer insurer) {
     int index = _insurers.indexWhere((i) => i.id == insurer.id);
-
+    //print(insurer.activeContracts);
     if (index == -1) {
-      print(index);
       throw DoesntExistOnListException(
           'data/students[_students list]', insurer.id.toString());
+    } else if (insurer.activeContracts.isNotEmpty) {
+      throw CannotDeleteElementWithActiveContracts(
+          'data/insurers[_insurers list]', insurer.name);
     }
     // TODO: cant remove if has active contracts
     _insurers.removeAt(index);
@@ -43,6 +45,14 @@ class Insurers {
   void addContract(Contract contract, Insurer insurer) {
     try {
       insurer.activeContracts.add(contract);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void inactiveContract(Contract contract, Insurer insurer) {
+    try {
+      insurer.inactiveContracts.add(contract);
     } catch (e) {
       print(e);
     }

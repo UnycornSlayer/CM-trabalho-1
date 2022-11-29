@@ -3,31 +3,31 @@ import '../exceptions/doesnt_exist_on_list_exception.dart';
 import '../models/contract.dart';
 
 class Contracts {
-  final List<Contract> _contacts = [];
+  final List<Contract> _contracts = [];
 
-  List<Contract> get list => _contacts;
+  List<Contract> get list => _contracts;
 
   void add(Contract contract) {
-    if (_contacts.any((c) => c.id == contract.id)) {
+    if (_contracts.any((c) => c.id == contract.id)) {
       throw AlreadyExistingItemException(
           'data/students[_students list]', contract.id.toString());
     }
-    _contacts.add(contract);
+    _contracts.add(contract);
   }
 
   void update(Contract contract) {
-    int index = _contacts.indexWhere((c) => c.id == contract.id);
+    int index = _contracts.indexWhere((c) => c.id == contract.id);
 
     if (index == -1) {
       print(index);
       throw DoesntExistOnListException(
           'data/students[_students list]', contract.id.toString());
     }
-    _contacts[index] = contract;
+    _contracts[index] = contract;
   }
 
   void delete(Contract contract) {
-    int index = _contacts.indexWhere((c) => c.id == contract.id);
+    int index = _contracts.indexWhere((c) => c.id == contract.id);
 
     if (index == -1) {
       print(index);
@@ -35,6 +35,6 @@ class Contracts {
           'data/students[_students list]', contract.id.toString());
     }
     // TODO: cant remove if has active contracts
-    _contacts.removeAt(index);
+    _contracts.removeAt(index);
   }
 }

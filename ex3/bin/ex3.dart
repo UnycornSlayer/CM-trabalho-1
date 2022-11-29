@@ -20,6 +20,9 @@ import 'package:intl/intl.dart';
   (no final do relatório deve surgir o somatório da coluna dos prémios das apólices).
 
   ❌ Relatório de entidades (i.e. tomadores e segurados) com apólices ativas, que mostre a idade e a morada de cada um.
+
+  ❌ Meter contratos como inativos
+  
 */
 
 void main(List<String> arguments) {
@@ -43,9 +46,9 @@ void main(List<String> arguments) {
   }
 
   List<Person> clients = [
-    Person(0, 'Miguel', 22, 'Rua de baixo', null),
-    Person(1, 'Pedro', 21, 'Rua de cima', null),
-    Person(2, 'Telmo', 23, 'Rua da esquerda', null)
+    Person(0, 'Miguel', 22, 'Rua de baixo', []),
+    Person(1, 'Pedro', 21, 'Rua de cima', []),
+    Person(2, 'Telmo', 23, 'Rua da esquerda', [])
   ];
 
   List<Contract> contracts = [
@@ -74,5 +77,7 @@ void main(List<String> arguments) {
 
 void printLists(List list) {
   print('------- SUMMARY (finally block) -------');
-  list.forEach((s) => print(s));
+  for (var s in list) {
+    print(s);
+  }
 }

@@ -40,18 +40,6 @@ class Insurers {
     _insurers.removeAt(index);
   }
 
-  int quantityActiveContracts(Insurer insurer) {
-    return insurer.activeContracts.isNotEmpty
-        ? insurer.activeContracts.length
-        : 0;
-  }
-
-  int quantityInactiveContracts(Insurer insurer) {
-    return insurer.inactiveContracts.isNotEmpty
-        ? insurer.inactiveContracts.length
-        : 0;
-  }
-
   void addContract(Contract contract, Insurer insurer) {
     try {
       insurer.activeContracts.add(contract);

@@ -5,11 +5,11 @@ class Person {
   String name;
   int age;
   String address;
-  List<Contract>? activeContracts;
+  List<Contract> contracts;
 
-  Person(this.id, this.name, this.age, this.address, this.activeContracts);
+  Person(this.id, this.name, this.age, this.address, this.contracts);
 
   @override
   String toString() => 'Id: $id , Name: $name,'
-      '${activeContracts != null ? 'Active contracts: $activeContracts' : ''}';
+      '${contracts.isNotEmpty ? 'Active contracts: $contracts' : ''}';
 }

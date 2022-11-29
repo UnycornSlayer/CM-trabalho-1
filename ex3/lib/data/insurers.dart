@@ -44,22 +44,31 @@ class Insurers {
     _insurers.removeAt(index);
   }
 
-  // TODO: Melhorar esta função
-  double averageIncomePerInsurer(Insurer insurer) {
-    try {
-      var sum = 0.0;
-      if (insurer.activeContracts.isNotEmpty) {
-        for (var i = 0; i < insurer.activeContracts.length; i++) {
-          sum += insurer.activeContracts[i].anualFee;
-          print(insurer.activeContracts[i].anualFee);
-        }
-        return sum / insurer.activeContracts.length;
-      }
-      return 0.0;
-    } catch (e) {
-      print(e);
-      return 0.0;
+  int quantityActiveContracts(Insurers insurers) {
+    int sum = 0;
+    for (var insurer in insurers.list) {
+      sum += insurer.activeContracts.length;
     }
+    return sum;
+  }
+
+  int quantityInactiveContracts(Insurers insurers) {
+    int sum = 0;
+    for (var insurer in insurers.list) {
+      sum += insurer.inactiveContracts.length;
+    }
+    return sum;
+  }
+
+  void averageIncomePerInsurer(Insurer insurer) {
+    var sum = 0.0;
+    if (insurer.activeContracts.isNotEmpty) {
+      for (var i = 0; i < insurer.activeContracts.length; i++) {
+        sum += insurer.activeContracts[i].anualFee;
+      }
+    }
+    print('Insurance: ${insurer.name}');
+    print('Average income: ${sum / insurer.activeContracts.length}\n');
   }
 
   void averageIncomePerType(Insurers insurers, String type) {

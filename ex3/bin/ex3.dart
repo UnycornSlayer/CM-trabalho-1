@@ -23,9 +23,6 @@ void main(List<String> arguments) {
     insurers.add(
       Insurer(2, 'nmldmn', null, null),
     );
-    insurers.add(
-      Insurer(0, 'ok teleseguros', null, null),
-    );
   } on AlreadyExistingItemException catch (e, f) {
     print(e.errorMessage());
     print(f);

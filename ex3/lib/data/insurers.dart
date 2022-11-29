@@ -61,7 +61,7 @@ class Insurers {
   }
 
   // TODO: Melhorar esta função
-  double averageIncome(Insurer insurer) {
+  double averageIncomePerInsurer(Insurer insurer) {
     try {
       var sum = 0.0;
       if (insurer.activeContracts.isNotEmpty) {
@@ -76,5 +76,20 @@ class Insurers {
       print(e);
       return 0.0;
     }
+  }
+
+  void averageIncomePerType(Insurers insurers, String type) {
+    var sum = 0.0;
+    var counter = 0;
+    for (var insurer in insurers.list) {
+      for (var contract in insurer.activeContracts) {
+        if (contract.type == type) {
+          sum += contract.anualFee;
+          counter++;
+        }
+      }
+    }
+    print('Quantity of active contracts with type: $type => $counter');
+    print('Average income: ${sum / counter}');
   }
 }

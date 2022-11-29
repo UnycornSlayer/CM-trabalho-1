@@ -90,6 +90,7 @@ void main(List<String> arguments) {
 
   // insurers.averageIncomePerType(insurers, 'car');
   // insurers.incomeReportPerInsurer(insurers);
+  contracts.incomePerType(contracts);
 }
 
 void printLists(List list) {

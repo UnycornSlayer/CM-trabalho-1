@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ex3/models/contract.dart';
 
 import '../exceptions/already_existing_item_exception.dart';
@@ -82,20 +84,33 @@ class Insurers {
   }
 
   void incomeReportPerInsurer(Insurers insurers) {
-    // TODO: Se não houver contratos de uma seguradora, não mostrar nada relativo a essa seguradora
-
-    print('------------Income report per Insurer------------');
-    for (var insurer in insurers.list) {
-      var totalIncomePerInsurer = 0.0;
-      print('\n\x1b[1mInsurer: ${insurer.name}\x1b[0m');
-      for (var contract in insurer.activeContracts) {
-        totalIncomePerInsurer += contract.anualFee;
-        print(
-            "Contract with: ${contract.taker.name}, Type: ${contract.type}, Fee: ${contract.anualFee}€.");
-      }
-      print(
-          '\x1b[1mInsurer ${insurer.name} has a total income of $totalIncomePerInsurer€.\x1b[0m');
-    }
+    List<double> totalIncomePerInsurer = List.filled(999, 0.0);
+    List<String> insurersNames = List.filled(999, '');
     print('------------------End of report------------------');
+
+    print('\x1b[1m-----------------------------------------------------------\n'
+        '                 Income Report By Insurer\n'
+        '-----------------------------------------------------------');
+    print('Name\t       Type\t        Fee\n'
+        '-----------------------------------------------------------\x1b[0m');
+    for (var i = 0; i < insurers.list.length; i++) {
+      for (var contract in insurers.list[i].activeContracts) {
+        stdout.write('${insurers.list[i].name.padRight(10)}\t');
+        stdout.write('${contract.type.padRight(10)}\t');
+        stdout.write('${contract.anualFee.toStringAsFixed(2).padLeft(8)} €');
+        totalIncomePerInsurer[i] += contract.anualFee;
+        insurersNames[i] = insurers.list[i].name;
+        print("");
+      }
+    }
+
+    print('\x1b[1m-----------------------------------------------------------');
+    for (var totalIncome in totalIncomePerInsurer) {
+      if (totalIncome == 0.0) break;
+      print(
+          '${insurersNames[totalIncomePerInsurer.indexOf(totalIncome)]} has a total income of ${totalIncomePerInsurer[totalIncomePerInsurer.indexOf(totalIncome)]}');
+    }
+
+    print('------------------------End of report----------------------\x1b[0m');
   }
 }

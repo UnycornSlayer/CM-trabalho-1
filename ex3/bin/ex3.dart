@@ -17,7 +17,7 @@ import 'package:intl/intl.dart';
 
   ✔️ quantidade de apólices e valor médio segurado por tipo de seguro (apenas apólices ativas); 
 
-  ❌ Relatório de apólices ativas por tipo de seguro e seguradora, que indique o valor de cada prémio.
+  ✔️ Relatório de apólices ativas por tipo de seguro e seguradora, que indique o valor de cada prémio.
   (no final do relatório deve surgir o somatório da coluna dos prémios das apólices).
 
   ❌ Relatório de entidades (i.e. tomadores e segurados) com apólices ativas, que mostre a idade e a morada de cada um.
@@ -89,8 +89,8 @@ void main(List<String> arguments) {
   // print('Average income: ${insurers.averageIncome(insurers.list[0])}');
 
   // insurers.averageIncomePerType(insurers, 'car');
-  // insurers.incomeReportPerInsurer(insurers);
-  contracts.incomePerType(contracts);
+  insurers.incomeReportPerInsurer(insurers);
+  // contracts.incomePerType(contracts);
 }
 
 void printLists(List list) {

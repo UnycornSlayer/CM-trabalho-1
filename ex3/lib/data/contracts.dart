@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ex3/data/insurers.dart';
 
 import '../exceptions/already_existing_item_exception.dart';
@@ -41,8 +43,6 @@ class Contracts {
   }
 
   void incomePerType(Contracts contracts) {
-    // TODO: Se não houver contratos de um tipo, não mostrar nada relativo a esse tipo
-
     /**
      * Income Array:
      * positon [0] = type car
@@ -50,40 +50,52 @@ class Contracts {
      * position [2] = type life
      */
     var totalIncomePerType = [0.0, 0.0, 0.0];
+    var carContracts = [];
+    var healthContracts = [];
+    var lifeContracts = [];
     print('------------Income report per Type------------');
     for (var contract in contracts.list) {
       if (contract.insurer.activeContracts.contains(contract)) {
         switch (contract.type) {
           case 'car':
-            print('\n\x1b[1mType: car\x1b[0m');
-            print(
-                'Contract with ${contract.insurer.name}, Type: car, Fee: ${contract.anualFee}€.');
+            carContracts.add(contract);
             totalIncomePerType[0] += contract.anualFee;
             break;
           case 'health':
-            print('\n\x1b[1mType: health\x1b[0m');
-            print(
-                'Contract with ${contract.insurer.name}, Type: health, Fee: ${contract.anualFee}€.');
+            healthContracts.add(contract);
             totalIncomePerType[1] += contract.anualFee;
             break;
           case 'life':
-            print('\n\x1b[1mType: life\x1b[0m');
-            print(
-                'Contract with ${contract.insurer.name}, Type: life, Fee: ${contract.anualFee}€.');
+            lifeContracts.add(contract);
             totalIncomePerType[2] += contract.anualFee;
             break;
         }
       }
     }
+
+    var everyType = [...carContracts, ...lifeContracts, ...healthContracts];
+
+    print('\x1b[1m-----------------------------------------------------------\n'
+        '                 Income Report By Type\n'
+        '-----------------------------------------------------------');
+    print('Name\t       Type\t        Fee\n'
+        '-----------------------------------------------------------\x1b[0m');
+    for (var contract in everyType) {
+      stdout.write('${contract.insurer.name.padRight(10)}\t');
+      stdout.write('${contract.type.padRight(10)}\t');
+      stdout.write('${contract.anualFee.toStringAsFixed(2).padLeft(8)} €');
+      print("");
+    }
+    print('\x1b[1m-----------------------------------------------------------');
     print((totalIncomePerType[0] > 0.0
-            ? '\n\x1b[1mType car has a total income of: ${totalIncomePerType[0]}\x1b[0m'
+            ? 'Type car has a total income of: ${totalIncomePerType[0]}'
             : '') +
         (totalIncomePerType[1] > 0.0
-            ? '\n\x1b[1mType health has a total income of:${totalIncomePerType[1]}\x1b[0m'
+            ? '\nType health has a total income of:${totalIncomePerType[1]}'
             : '') +
         (totalIncomePerType[2] > 0.0
-            ? '\n\x1b[1mType life has a total income of:${totalIncomePerType[2]}\x1b[0m'
+            ? '\nType life has a total income of:${totalIncomePerType[2]}'
             : ''));
-    print('----------------End of report----------------');
+    print('----------------End of report----------------\x1b[0m');
   }
 }

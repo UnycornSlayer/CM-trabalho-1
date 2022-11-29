@@ -14,7 +14,7 @@ import 'package:intl/intl.dart';
 
   ✔️ quantidade de apólices e valor médio segurado por seguradora (apenas apólices ativas).
 
-  ❌ quantidade de apólices e valor médio segurado por tipo de seguro (apenas apólices ativas); 
+  ✔️ quantidade de apólices e valor médio segurado por tipo de seguro (apenas apólices ativas); 
 
   ❌ Relatório de apólices ativas por tipo de seguro e seguradora, que indique o valor de cada prémio.
   (no final do relatório deve surgir o somatório da coluna dos prémios das apólices).
@@ -63,6 +63,7 @@ void main(List<String> arguments) {
   insurers.addContract(contracts[1], insurers.list[1]);
   insurers.addContract(contracts[2], insurers.list[2]);
   insurers.addContract(contracts[3], insurers.list[2]);
+
   // print(insurers.list);
   // print(
   //     'Quantity of active contracts: ${insurers.quantityActiveContracts(insurers.list[0])}');

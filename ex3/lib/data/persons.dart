@@ -1,4 +1,5 @@
 import '../exceptions/already_existing_item_exception.dart';
+import '../exceptions/cannot_delete_element_with_active_contracts.dart';
 import '../exceptions/doesnt_exist_on_list_exception.dart';
 import '../models/person.dart';
 
@@ -33,6 +34,9 @@ class Persons {
       print(index);
       throw DoesntExistOnListException(
           'data/students[_students list]', person.id.toString());
+    } else if (person.contracts.isNotEmpty) {
+      throw CannotDeleteElementWithActiveContracts(
+          'data/persons[_persons list]', person.name);
     }
     // TODO: cant remove if has active contracts
     _persons.removeAt(index);

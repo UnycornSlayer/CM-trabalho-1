@@ -17,6 +17,8 @@ class Contracts {
           'data/students[_students list]', contract.id.toString());
     }
     _contracts.add(contract);
+    contract.insurer.activeContracts.add(contract);
+    contract.taker.contracts.add(contract);
   }
 
   void update(Contract contract) {

@@ -1,10 +1,9 @@
 import 'dart:io';
 
-import 'package:ex3/models/contract.dart';
-
 import '../exceptions/already_existing_item_exception.dart';
 import '../exceptions/cannot_delete_element_with_active_contracts.dart';
 import '../exceptions/doesnt_exist_on_list_exception.dart';
+import '../models/contract.dart';
 import '../models/person.dart';
 
 class Persons {
@@ -42,6 +41,7 @@ class Persons {
       throw CannotDeleteElementWithActiveContracts(
           'data/persons[_persons list]', person.name);
     }
+    // TODO: cant remove if has active contracts
     _persons.removeAt(index);
   }
 
@@ -65,6 +65,24 @@ class Persons {
       }
     }
     print(
-        '--------------------------------End of report-------------------------------------\x1b[0m');
+        '\x1b[1m--------------------------------End of report-------------------------------------\x1b[0m');
+  }
+
+  void listPersons() {
+    print('\x1b[1m-----------------------------------------------------------\n'
+        '                        Clients List\n'
+        '-----------------------------------------------------------');
+    print('Id\tName\t Age\t    Address\t  Active Contracts\n'
+        '-----------------------------------------------------------\x1b[0m');
+    _persons.forEach((p) {
+      stdout.write('${p.id.toStringAsFixed(0).padRight(5)}\t');
+      stdout.write('${p.name.padRight(6)}\t');
+      stdout.write('${p.age.toStringAsFixed(0).padRight(5).padLeft(6)}\t');
+      stdout.write('${p.address.padRight(20)}\t');
+      stdout.write('${p.contracts.length.toStringAsFixed(0).padRight(10)}\t');
+      print("");
+    });
+    print(
+        '\x1b[1m-------------------------End of List-----------------------\x1b[0m');
   }
 }

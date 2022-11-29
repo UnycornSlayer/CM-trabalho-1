@@ -1,10 +1,14 @@
 import 'dart:io';
+
+import 'package:ex3/data/insurers.dart';
+
 import '../exceptions/already_existing_item_exception.dart';
 import '../exceptions/doesnt_exist_on_list_exception.dart';
 import '../models/contract.dart';
 
 class Contracts {
   final List<Contract> _contracts = [];
+  final List<Contract> _inactiveContracts = [];
 
   List<Contract> get list => _contracts;
 
@@ -37,7 +41,22 @@ class Contracts {
       throw DoesntExistOnListException(
           'data/students[_students list]', contract.id.toString());
     }
+    // TODO: cant remove if has active contracts
     _contracts.removeAt(index);
+  }
+
+  void makeInactive(Contract contract) {
+    int index = _contracts.indexWhere((c) => c.id == contract.id);
+
+    if (index == -1) {
+      print(index);
+      throw DoesntExistOnListException(
+          'data/students[_students list]', contract.id.toString());
+    }
+    _contracts.removeAt(index);
+    _inactiveContracts.add(contract);
+    contract.insurer.inactiveContracts.add(contract);
+    contract.taker.contracts.removeAt(index);
   }
 
   void incomePerType(Contracts contracts) {
@@ -94,6 +113,6 @@ class Contracts {
         (totalIncomePerType[2] > 0.0
             ? '\nType life has a total income of:${totalIncomePerType[2]}'
             : ''));
-    print('----------------End of report----------------\x1b[0m');
+    print('\x1b[1m----------------End of report----------------\x1b[0m');
   }
 }

@@ -2,6 +2,7 @@ import 'package:ex3/models/insurer.dart';
 import 'package:ex3/models/person.dart';
 
 class Contract {
+  int id;
   DateTime expirationDate;
   double anualFee;
   Person taker; // person whos wants the insurance
@@ -9,7 +10,7 @@ class Contract {
   String insured; // thing / who is insured , EX: Car in car insuranse
   String type; // car insurance or life insurance or etc...
 
-  Contract(this.type, this.expirationDate, this.anualFee, this.insured,
+  Contract(this.id, this.type, this.expirationDate, this.anualFee, this.insured,
       this.insurer, this.taker);
 
   @override

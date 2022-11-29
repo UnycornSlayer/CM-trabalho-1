@@ -33,11 +33,11 @@ void main(List<String> arguments) {
   ];
 
   List<Contract> contracts = [
-    Contract('health', DateTime(2023 - 5 - 15), 8000, clients[0].name,
+    Contract(0, 'health', DateTime(2023 - 5 - 15), 8000, clients[0].name,
         insurers.list[0], clients[0]),
-    Contract('car', DateTime(2024 - 1 - 1), 10000, 'BMW Series 1',
+    Contract(1, 'car', DateTime(2024 - 1 - 1), 10000, 'BMW Series 1',
         insurers.list[1], clients[1]),
-    Contract('life', DateTime(2022 - 12 - 31), 12000, clients[0].name,
+    Contract(2, 'life', DateTime(2022 - 12 - 31), 12000, clients[0].name,
         insurers.list[2], clients[2])
   ];
 

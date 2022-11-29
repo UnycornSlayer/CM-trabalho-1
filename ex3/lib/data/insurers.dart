@@ -10,7 +10,7 @@ class Insurers {
   List<Insurer> get list => _insurers;
 
   void add(Insurer insurer) {
-    if (_insurers.any((s) => s.id == insurer.id)) {
+    if (_insurers.any((i) => i.id == insurer.id)) {
       throw AlreadyExistingItemException(
           'data/students[_students list]', insurer.id.toString());
     }
@@ -18,7 +18,7 @@ class Insurers {
   }
 
   void update(Insurer insurer) {
-    int index = _insurers.indexWhere((s) => s.id == insurer.id);
+    int index = _insurers.indexWhere((i) => i.id == insurer.id);
 
     if (index == -1) {
       print(index);
@@ -29,7 +29,7 @@ class Insurers {
   }
 
   void delete(Insurer insurer) {
-    int index = _insurers.indexWhere((s) => s.id == insurer.id);
+    int index = _insurers.indexWhere((i) => i.id == insurer.id);
 
     if (index == -1) {
       print(index);

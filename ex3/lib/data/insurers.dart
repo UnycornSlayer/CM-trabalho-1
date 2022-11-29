@@ -1,8 +1,6 @@
 import 'package:ex3/exceptions/cannot_delete_element_with_active_contracts.dart';
 import 'dart:io';
-
 import 'package:ex3/models/contract.dart';
-
 import '../exceptions/already_existing_item_exception.dart';
 import '../exceptions/doesnt_exist_on_list_exception.dart';
 import '../models/insurer.dart';
@@ -40,7 +38,6 @@ class Insurers {
       throw CannotDeleteElementWithActiveContracts(
           'data/insurers[_insurers list]', insurer.name);
     }
-    // TODO: cant remove if has active contracts
     _insurers.removeAt(index);
   }
 
@@ -96,8 +93,6 @@ class Insurers {
   void incomeReportPerInsurer(Insurers insurers) {
     List<double> totalIncomePerInsurer = List.filled(999, 0.0);
     List<String> insurersNames = List.filled(999, '');
-    print('------------------End of report------------------');
-
     print('\x1b[1m-----------------------------------------------------------\n'
         '                 Income Report By Insurer\n'
         '-----------------------------------------------------------');

@@ -1,6 +1,5 @@
 import 'package:ex3/exceptions/cannot_delete_element_with_active_contracts.dart';
 import 'dart:io';
-import 'package:ex3/models/contract.dart';
 import '../exceptions/already_existing_item_exception.dart';
 import '../exceptions/doesnt_exist_on_list_exception.dart';
 import '../models/insurer.dart';
@@ -41,38 +40,31 @@ class Insurers {
     _insurers.removeAt(index);
   }
 
-  void addContract(Contract contract, Insurer insurer) {
-    try {
-      insurer.activeContracts.add(contract);
-    } catch (e) {
-      print(e);
+  int quantityActiveContracts(Insurers insurers) {
+    int sum = 0;
+    for (var insurer in insurers.list) {
+      sum += insurer.activeContracts.length;
     }
+    return sum;
   }
 
-  void inactiveContract(Contract contract, Insurer insurer) {
-    try {
-      insurer.inactiveContracts.add(contract);
-    } catch (e) {
-      print(e);
+  int quantityInactiveContracts(Insurers insurers) {
+    int sum = 0;
+    for (var insurer in insurers.list) {
+      sum += insurer.inactiveContracts.length;
     }
+    return sum;
   }
 
-  // TODO: Melhorar esta função
-  double averageIncomePerInsurer(Insurer insurer) {
-    try {
-      var sum = 0.0;
-      if (insurer.activeContracts.isNotEmpty) {
-        for (var i = 0; i < insurer.activeContracts.length; i++) {
-          sum += insurer.activeContracts[i].anualFee;
-          print(insurer.activeContracts[i].anualFee);
-        }
-        return sum / insurer.activeContracts.length;
+  void averageIncomePerInsurer(Insurer insurer) {
+    var sum = 0.0;
+    if (insurer.activeContracts.isNotEmpty) {
+      for (var i = 0; i < insurer.activeContracts.length; i++) {
+        sum += insurer.activeContracts[i].anualFee;
       }
-      return 0.0;
-    } catch (e) {
-      print(e);
-      return 0.0;
     }
+    print('Insurance: ${insurer.name}');
+    print('Average income: ${sum / insurer.activeContracts.length}\n');
   }
 
   void averageIncomePerType(Insurers insurers, String type) {

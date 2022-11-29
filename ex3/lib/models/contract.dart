@@ -14,6 +14,5 @@ class Contract {
       this.insurer, this.taker);
 
   @override
-  String toString() =>
-      'Contract of $taker about $insured at ${insurer.name} with a type of `$type` has an expiration date of $expirationDate and an anual fee of $anualFee €';
+  String toString() => 'Contract between $insurer and $taker for $anualFee€';
 }

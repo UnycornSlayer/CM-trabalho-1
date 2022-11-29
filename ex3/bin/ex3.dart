@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ex3/data/contracts.dart';
 import 'package:ex3/data/insurers.dart';
 import 'package:ex3/data/persons.dart';
@@ -24,7 +26,6 @@ import 'package:ex3/models/person.dart';
   ✔️ Relatório de entidades (i.e. tomadores e segurados) com apólices ativas, que mostre a idade e a morada de cada um.
 
   ❌ Meter contratos como inativos
-  
 */
 
 void main(List<String> arguments) {
@@ -86,16 +87,180 @@ void main(List<String> arguments) {
     print(f);
   }
 
-  // insurers.averageIncomePerType(insurers, 'car');
-  // insurers.incomeReportPerInsurer(insurers);
-  // contracts.incomePerType(contracts);
-  clients.entityReport(clients);
+  while (true) {
+    print('------------------------------------------------\n');
+    print('           Surpresas existem!\n');
+    print('------------------------------------------------\n');
+    print(' 1 - Quantity of active and inactive contracts');
+    print(' 2 - Average anual fee for active contracts per insurer');
+    print(' 3 - Average anual fee for active contracts per type');
+    print(' 4 - Client Management');
+    print(' 5 - Insurer Management');
+    print(' 6 - Contract Management');
+    print(' 7 - Exit program');
+    print('------------------------------------------------\n');
+    int? op = int.parse(stdin.readLineSync()!);
+    switch (op) {
+      case 1:
+        int numActive = insurers.quantityActiveContracts(insurers);
+        int numInactive = insurers.quantityInactiveContracts(insurers);
+        print('Number of active contracts: $numActive');
+        print('Number of inactive contracts: $numInactive ');
+        break;
+
+      case 2:
+        for (var insurer in insurers.list) {
+          insurers.averageIncomePerInsurer(insurer);
+        }
+        break;
+
+      case 3:
+        List types = ['car', 'health', 'life'];
+        for (var type in types) {
+          insurers.averageIncomePerType(insurers, type);
+        }
+        break;
+
+      case 4:
+        clients = manageClients(clients);
+        break;
+
+      case 5:
+        insurers = manageInsurers(insurers);
+        break;
+
+      case 6:
+        // contracts = manageContracts(contracts);
+        break;
+      default:
+        print('\n\n\nSee you soon!! :)');
+        exit(5);
+    }
+  }
 }
 
 void printLists(List list) {
-  // TODO: Format to make it look like a table
+  // Format to make it look like a table
   print('------- SUMMARY (finally block) -------');
   for (var s in list) {
     print(s);
+  }
+}
+
+Persons manageClients(Persons clients) {
+  while (true) {
+    print('------------------------------------------------\n');
+    print('           Client Management\n');
+    print('------------------------------------------------\n');
+    print(' 1 - Create new client');
+    print(' 2 - Update existing client');
+    print(' 3 - Remove existing client');
+    print(' 4 - List every client');
+    print(' 5 - See entities report');
+    print(' 6 - Exit client management');
+    print('------------------------------------------------\n');
+    int? op = int.parse(stdin.readLineSync()!);
+    switch (op) {
+      case 1:
+        print('Client name:');
+        String name = stdin.readLineSync()!;
+        print('Client age:');
+        int age = int.parse(stdin.readLineSync()!);
+        print('Client address:');
+        String address = stdin.readLineSync()!;
+        clients.add(Person((clients.list[clients.list.length - 1].id + 1), name,
+            age, address, []));
+        break;
+
+      case 2:
+        // List every client
+        print('Type Id of the client to update: ');
+        int id = int.parse(stdin.readLineSync()!);
+        var index = clients.list.indexWhere((c) => c.id == id);
+        print('Client name:');
+        String name = stdin.readLineSync()!;
+        print('Client age:');
+        int age = int.parse(stdin.readLineSync()!);
+        print('Client address:');
+        String address = stdin.readLineSync()!;
+        clients.update(Person(clients.list[index].id, name, age, address,
+            clients.list[index].contracts));
+        break;
+
+      case 3:
+        // List every client
+        print('Type Id of the client to delete: ');
+        int id = int.parse(stdin.readLineSync()!);
+        var index = clients.list.indexWhere((c) => c.id == id);
+        clients.delete(clients.list[index]);
+        break;
+
+      case 4:
+        // list every client
+        break;
+
+      case 5:
+        clients.entityReport(clients);
+        break;
+      default:
+        return clients;
+    }
+  }
+}
+
+Insurers manageInsurers(Insurers insurers) {
+  while (true) {
+    print('------------------------------------------------\n');
+    print('           Insurer Management\n');
+    print('------------------------------------------------\n');
+    print(' 1 - Create new insurer');
+    print(' 2 - Update existing insurer');
+    print(' 3 - Remove existing insurer');
+    print(' 4 - List every insurer');
+    print(' 5 - See Income report per insurer');
+    print(' 6 - Exit insurer management');
+    print('------------------------------------------------\n');
+    int? op = int.parse(stdin.readLineSync()!);
+    switch (op) {
+      case 1:
+        print('Insurer name:');
+        String name = stdin.readLineSync()!;
+        insurers.add(
+          Insurer(
+              (insurers.list[insurers.list.length - 1].id + 1), name, [], []),
+        );
+        break;
+
+      case 2:
+        // List every insurer
+        print('Type Id of the insurer to update: ');
+        int id = int.parse(stdin.readLineSync()!);
+        var index = insurers.list.indexWhere((c) => c.id == id);
+        print('Insurer name:');
+        String name = stdin.readLineSync()!;
+        insurers.update(
+          Insurer(id, name, insurers.list[index].activeContracts,
+              insurers.list[index].inactiveContracts),
+        );
+        break;
+
+      case 3:
+        // List every Insurer
+        print('Type Id of the insurer to delete: ');
+        int id = int.parse(stdin.readLineSync()!);
+        var index = insurers.list.indexWhere((i) => i.id == id);
+        insurers.delete(insurers.list[index]);
+        break;
+
+      case 4:
+        // List every insurer
+        break;
+
+      case 5:
+        insurers.incomeReportPerInsurer(insurers);
+        break;
+      default:
+        return insurers;
+    }
   }
 }

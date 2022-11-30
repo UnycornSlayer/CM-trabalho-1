@@ -10,24 +10,6 @@ import 'package:ex3/models/contract.dart';
 import 'package:ex3/models/insurer.dart';
 import 'package:ex3/models/person.dart';
 
-/*
-  ✔️ Não esqueça de garantir a integridade das referências
-  (e.g. uma seguradora não pode ser removida se existirem apólices relacionadas).
-
-  ✔️ quantidade de apólices ativas e inativas.
-
-  ✔️ quantidade de apólices e valor médio segurado por seguradora (apenas apólices ativas).
-
-  ✔️ quantidade de apólices e valor médio segurado por tipo de seguro (apenas apólices ativas); 
-
-  ✔️ Relatório de apólices ativas por tipo de seguro e seguradora, que indique o valor de cada prémio.
-  (no final do relatório deve surgir o somatório da coluna dos prémios das apólices).
-
-  ✔️ Relatório de entidades (i.e. tomadores e segurados) com apólices ativas, que mostre a idade e a morada de cada um.
-
-  ❌ Meter contratos como inativos
-*/
-
 void main(List<String> arguments) {
   Insurers insurers = Insurers();
   Contracts contracts = Contracts();

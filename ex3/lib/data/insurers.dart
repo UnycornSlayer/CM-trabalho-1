@@ -9,6 +9,8 @@ class Insurers {
 
   List<Insurer> get list => _insurers;
 
+  /// Add an insurer to a list os insurers
+  /// @params Insurer insurer
   void add(Insurer insurer) {
     if (_insurers.any((i) => i.id == insurer.id)) {
       throw AlreadyExistingItemException(
@@ -17,6 +19,8 @@ class Insurers {
     _insurers.add(insurer);
   }
 
+  /// Update an existing insurer from the List of insurers
+  /// @params Insurer insurer
   void update(Insurer insurer) {
     int index = _insurers.indexWhere((i) => i.id == insurer.id);
 
@@ -27,6 +31,8 @@ class Insurers {
     _insurers[index] = insurer;
   }
 
+  /// Delete an insurer from the List of insurers
+  /// @params Insurer insurer
   void delete(Insurer insurer) {
     int index = _insurers.indexWhere((i) => i.id == insurer.id);
     //print(insurer.activeContracts);
@@ -40,6 +46,9 @@ class Insurers {
     _insurers.removeAt(index);
   }
 
+  /// get Quantity of active contracts for all insurers combined
+  /// @params Insurers insurers
+  /// @return sum
   int quantityActiveContracts(Insurers insurers) {
     int sum = 0;
     for (var insurer in insurers.list) {
@@ -48,6 +57,9 @@ class Insurers {
     return sum;
   }
 
+  /// get Quantity of inactive contracts for all insurers combined
+  /// @params Insurers insurers
+  /// @return sum
   int quantityInactiveContracts(Insurers insurers) {
     int sum = 0;
     for (var insurer in insurers.list) {
@@ -56,6 +68,8 @@ class Insurers {
     return sum;
   }
 
+  /// Print average income for every insurer
+  /// @params Insurer insurer
   void averageIncomePerInsurer(Insurer insurer) {
     var sum = 0.0;
     if (insurer.activeContracts.isNotEmpty) {
@@ -67,6 +81,9 @@ class Insurers {
     print('Average income: ${sum / insurer.activeContracts.length}\n');
   }
 
+  /// Print the average income for a type of contract
+  /// @params Insurers insurers
+  /// @params String type
   void averageIncomePerType(Insurers insurers, String type) {
     var sum = 0.0;
     var counter = 0;
@@ -81,6 +98,10 @@ class Insurers {
     print('Quantity of active contracts with type: $type => $counter');
     print('Average income: ${sum / counter}');
   }
+
+  /// Income report grouped by Insurer
+  /// Including total income for every insurer
+  /// @params Insurers insurers
 
   void incomeReportPerInsurer(Insurers insurers) {
     List<double> totalIncomePerInsurer = List.filled(999, 0.0);
@@ -112,6 +133,7 @@ class Insurers {
         '\x1b[1m------------------------End of report----------------------\x1b[0m');
   }
 
+  // List every insurer
   void listInsurers() {
     print(
         '\x1b[1m---------------------------------------------------------------------\n'

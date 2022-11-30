@@ -9,6 +9,8 @@ class Contracts {
 
   List<Contract> get list => _contracts;
 
+  /// Add a contract to a list os contracts
+  /// @params Contract contract
   void add(Contract contract) {
     if (_contracts.any((c) => c.id == contract.id)) {
       throw AlreadyExistingItemException(
@@ -19,6 +21,8 @@ class Contracts {
     contract.taker.contracts.add(contract);
   }
 
+  /// Update an existing contract from the List of contracts
+  /// @params Contract contract
   void update(Contract contract) {
     int index = _contracts.indexWhere((c) => c.id == contract.id);
 
@@ -30,6 +34,8 @@ class Contracts {
     _contracts[index] = contract;
   }
 
+  /// Delete a contract from the List of contracts
+  /// @params Contract contract
   void delete(Contract contract) {
     int index = _contracts.indexWhere((c) => c.id == contract.id);
 
@@ -41,6 +47,8 @@ class Contracts {
     _contracts.removeAt(index);
   }
 
+  /// Make a contract inactive (must be active)
+  /// @params Contract contract
   void makeInactive(Contract contract) {
     int index = _contracts.indexWhere((c) => c.id == contract.id);
 
@@ -49,15 +57,20 @@ class Contracts {
           'data/students[_students list]', contract.id.toString());
     }
     _contracts.removeAt(index);
+    // Find index of that contract in the activeContracts list of the insurer
     index =
         contract.insurer.activeContracts.indexWhere((c) => c.id == contract.id);
     contract.insurer.activeContracts.removeAt(index);
     _inactiveContracts.add(contract);
     contract.insurer.inactiveContracts.add(contract);
+    // Find the index of the contract received by param in the contracts list of the person
     index = contract.taker.contracts.indexWhere((c) => c.id == contract.id);
     contract.taker.contracts.removeAt(index);
   }
 
+  /// Print income of every contract grouped by contract type
+  /// Including the total income for every contract type
+  /// @params Contracts contrats
   void incomePerType(Contracts contracts) {
     /**
      * Income Array:
@@ -114,6 +127,7 @@ class Contracts {
     print('\x1b[1m----------------End of report----------------\x1b[0m');
   }
 
+  /// Method to list every active contract
   void listContracts() {
     print(
         '\x1b[1m---------------------------------------------------------------------------\n'

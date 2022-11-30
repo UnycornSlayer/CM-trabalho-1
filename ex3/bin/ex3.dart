@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:ex3/data/contracts.dart';
 import 'package:ex3/data/insurers.dart';
 import 'package:ex3/data/persons.dart';
@@ -16,6 +15,7 @@ void main(List<String> arguments) {
   Persons clients = Persons();
 
   try {
+    // Dummy data
     clients.add(
       Person(0, 'Miguel', 22, 'Rua de baixo', []),
     );
@@ -58,7 +58,7 @@ void main(List<String> arguments) {
       Contract(3, 'car', DateTime(2024 - 02 - 22), 11000, 'OPEL Corsa',
           insurers.list[2], clients.list[2]),
     );
-
+    // APP MENU
     while (true) {
       print('------------------------------------------------\n');
       print('           Surpresas existem!\n');
@@ -74,6 +74,7 @@ void main(List<String> arguments) {
       int? op = int.parse(stdin.readLineSync()!);
       switch (op) {
         case 1:
+          // quantity of active and inactive contracts
           int numActive = insurers.quantityActiveContracts(insurers);
           int numInactive = insurers.quantityInactiveContracts(insurers);
           print('Number of active contracts: $numActive');
@@ -81,12 +82,14 @@ void main(List<String> arguments) {
           break;
 
         case 2:
+          //average income per insurer
           for (var insurer in insurers.list) {
             insurers.averageIncomePerInsurer(insurer);
           }
           break;
 
         case 3:
+          //average income per type
           List types = ['car', 'health', 'life'];
           for (var type in types) {
             insurers.averageIncomePerType(insurers, type);
@@ -94,21 +97,26 @@ void main(List<String> arguments) {
           break;
 
         case 4:
+          //person menu
           clients = manageClients(clients);
           break;
 
         case 5:
+          //insurer menu
           insurers = manageInsurers(insurers);
           break;
 
         case 6:
+          // contract menu
           contracts = manageContracts(contracts, insurers, clients);
           break;
         default:
+          //exit program
           print('\n\n\nSee you soon!! :)');
           exit(5);
       }
     }
+    //exceptions
   } on AlreadyExistingItemException catch (e, f) {
     print(e.errorMessage());
     print(f);
@@ -121,6 +129,9 @@ void main(List<String> arguments) {
   }
 }
 
+/// Menu that contains every person operation
+/// @params Persons clients
+/// @return Persons clients
 Persons manageClients(Persons clients) {
   while (true) {
     print('------------------------------------------------\n');
@@ -136,6 +147,7 @@ Persons manageClients(Persons clients) {
     int? op = int.parse(stdin.readLineSync()!);
     switch (op) {
       case 1:
+        //create
         print('Client name:');
         String name = stdin.readLineSync()!;
         print('Client age:');
@@ -147,6 +159,7 @@ Persons manageClients(Persons clients) {
         break;
 
       case 2:
+        //update
         clients.listPersons();
         print('Type Id of the client to update: ');
         int id = int.parse(stdin.readLineSync()!);
@@ -162,6 +175,7 @@ Persons manageClients(Persons clients) {
         break;
 
       case 3:
+        //delete
         clients.listPersons();
         print('Type Id of the client to delete: ');
         int id = int.parse(stdin.readLineSync()!);
@@ -170,10 +184,12 @@ Persons manageClients(Persons clients) {
         break;
 
       case 4:
+        //list every person
         clients.listPersons();
         break;
 
       case 5:
+        //entity report
         clients.entityReport(clients);
         break;
       default:
@@ -182,6 +198,9 @@ Persons manageClients(Persons clients) {
   }
 }
 
+/// Menu that contains every insurer operation
+/// @params Insurers insurers
+/// @return Insurers insurers
 Insurers manageInsurers(Insurers insurers) {
   while (true) {
     print('------------------------------------------------\n');
@@ -197,6 +216,7 @@ Insurers manageInsurers(Insurers insurers) {
     int? op = int.parse(stdin.readLineSync()!);
     switch (op) {
       case 1:
+        //create
         print('Insurer name:');
         String name = stdin.readLineSync()!;
         insurers.add(
@@ -206,6 +226,7 @@ Insurers manageInsurers(Insurers insurers) {
         break;
 
       case 2:
+        //update
         insurers.listInsurers();
         print('Type Id of the insurer to update: ');
         int id = int.parse(stdin.readLineSync()!);
@@ -219,6 +240,7 @@ Insurers manageInsurers(Insurers insurers) {
         break;
 
       case 3:
+        //remove
         insurers.listInsurers();
         print('Type Id of the insurer to delete: ');
         int id = int.parse(stdin.readLineSync()!);
@@ -227,10 +249,12 @@ Insurers manageInsurers(Insurers insurers) {
         break;
 
       case 4:
+        //list every insurer
         insurers.listInsurers();
         break;
 
       case 5:
+        //report per insurer
         insurers.incomeReportPerInsurer(insurers);
         break;
       default:
@@ -239,6 +263,11 @@ Insurers manageInsurers(Insurers insurers) {
   }
 }
 
+/// Menu that contains every contract operation
+/// @params Contracts contracts
+/// @params Insurers insurers
+/// @params Persons persons
+/// @return Contracts contracts
 Contracts manageContracts(
     Contracts contracts, Insurers insurers, Persons persons) {
   while (true) {
@@ -255,6 +284,7 @@ Contracts manageContracts(
     print(' 7 - Exit insurer management');
     print('------------------------------------------------\n');
     int? op = int.parse(stdin.readLineSync()!);
+    // Needed extra switch case to choose contract type
     switch (op) {
       //create
       case 1:
@@ -369,6 +399,7 @@ Contracts manageContracts(
         break;
 
       case 4:
+        // make contract inactive
         contracts.listContracts();
         print('Type Id of the contract to make inactive: ');
         int id = int.parse(stdin.readLineSync()!);
@@ -381,6 +412,7 @@ Contracts manageContracts(
         contracts.incomePerType(contracts);
         break;
       case 6:
+        // list every active contract
         contracts.listContracts();
         break;
       default:

@@ -11,6 +11,8 @@ class Persons {
 
   List<Person> get list => _persons;
 
+  /// Add a person to a list os persons
+  /// @params Person person
   void add(Person person) {
     if (_persons.any((p) => p.id == person.id)) {
       throw AlreadyExistingItemException(
@@ -19,6 +21,8 @@ class Persons {
     _persons.add(person);
   }
 
+  /// Update an existing person from the List of persons
+  /// @params Person person
   void update(Person person) {
     int index = _persons.indexWhere((p) => p.id == person.id);
 
@@ -30,6 +34,8 @@ class Persons {
     _persons[index] = person;
   }
 
+  /// Delete a person from the List of persons
+  /// @params Person person
   void delete(Person person) {
     int index = _persons.indexWhere((p) => p.id == person.id);
 
@@ -44,18 +50,20 @@ class Persons {
     _persons.removeAt(index);
   }
 
-  void entityReport(Persons clients) {
+  /// Report for every person with info about their active contracts
+  /// @params Persons clients
+  void entityReport(Persons persons) {
     print(
         '\x1b[1m----------------------------------------------------------------------------------\n'
         '                            Entities Report\n'
         '----------------------------------------------------------------------------------');
     print('Name\t Age\t    Address\t Insurer\t Type\t Insured\t Fee\n'
         '----------------------------------------------------------------------------------\x1b[0m');
-    for (Person client in clients.list) {
-      for (Contract contract in client.contracts) {
-        stdout.write('${client.name.padRight(5)}\t');
-        stdout.write('${client.age.toStringAsFixed(1).padRight(7)}\t');
-        stdout.write('${client.address.padRight(10)}\t');
+    for (Person person in persons.list) {
+      for (Contract contract in person.contracts) {
+        stdout.write('${person.name.padRight(5)}\t');
+        stdout.write('${person.age.toStringAsFixed(1).padRight(7)}\t');
+        stdout.write('${person.address.padRight(10)}\t');
         stdout.write('${contract.insurer.name.padRight(10)}\t');
         stdout.write('${contract.type.padRight(5)}\t');
         stdout.write('${contract.insured.padRight(10)}\t');
@@ -67,6 +75,7 @@ class Persons {
         '\x1b[1m--------------------------------End of report-------------------------------------\x1b[0m');
   }
 
+  /// List every person object
   void listPersons() {
     print('\x1b[1m-----------------------------------------------------------\n'
         '                        Clients List\n'

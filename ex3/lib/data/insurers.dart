@@ -119,14 +119,15 @@ class Insurers {
   }
 
   void listInsuers() {
-    print('\x1b[1m-----------------------------------------------------------\n'
-        '                        Insuers List\n'
-        '-----------------------------------------------------------');
+    print(
+        '\x1b[1m---------------------------------------------------------------------\n'
+        '                        Insurers List\n'
+        '---------------------------------------------------------------------');
     print('Id\tName\t          Active Contracts\t  Inactive Contracts\n'
-        '-----------------------------------------------------------\x1b[0m');
+        '---------------------------------------------------------------------\x1b[0m');
     _insurers.forEach((i) {
       stdout.write('${i.id.toStringAsFixed(0).padRight(5)}\t');
-      stdout.write('${i.name.padRight(15)}\t');
+      stdout.write('${i.name.padRight(22)}\t');
       stdout.write(
           '${i.activeContracts.length.toStringAsFixed(0).padRight(20).padLeft(10)}\t');
       stdout.write(
@@ -134,6 +135,6 @@ class Insurers {
       print("");
     });
     print(
-        '\x1b[1m-------------------------End of List-----------------------\x1b[0m');
+        '\x1b[1m------------------------------End of List----------------------------\x1b[0m');
   }
 }

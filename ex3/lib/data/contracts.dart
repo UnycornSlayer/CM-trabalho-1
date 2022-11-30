@@ -45,13 +45,16 @@ class Contracts {
     int index = _contracts.indexWhere((c) => c.id == contract.id);
 
     if (index == -1) {
-      print(index);
       throw DoesntExistOnListException(
           'data/students[_students list]', contract.id.toString());
     }
     _contracts.removeAt(index);
+    index =
+        contract.insurer.activeContracts.indexWhere((c) => c.id == contract.id);
+    contract.insurer.activeContracts.removeAt(index);
     _inactiveContracts.add(contract);
     contract.insurer.inactiveContracts.add(contract);
+    index = contract.taker.contracts.indexWhere((c) => c.id == contract.id);
     contract.taker.contracts.removeAt(index);
   }
 

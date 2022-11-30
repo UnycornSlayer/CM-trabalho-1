@@ -269,7 +269,8 @@ Contracts manageContracts(
     print(' 3 - Remove existing contract');
     print(' 4 - Make contract inactive');
     print(' 5 - See Income report per contract');
-    print(' 6 - Exit insurer management');
+    print(' 6 - See list of contracts');
+    print(' 7 - Exit insurer management');
     print('------------------------------------------------\n');
     int? op = int.parse(stdin.readLineSync()!);
     switch (op) {
@@ -387,7 +388,7 @@ Contracts manageContracts(
 
       case 4:
         contracts.listContracts();
-        print('Type Id of the contract to delete: ');
+        print('Type Id of the contract to make inactive: ');
         int id = int.parse(stdin.readLineSync()!);
         var index = contracts.list.indexWhere((i) => i.id == id);
         contracts.makeInactive(contracts.list[index]);
@@ -396,6 +397,9 @@ Contracts manageContracts(
       case 5:
         // income per type report
         contracts.incomePerType(contracts);
+        break;
+      case 6:
+        contracts.listContracts();
         break;
       default:
         return contracts;

@@ -85,8 +85,6 @@ class Insurers {
   void incomeReportPerInsurer(Insurers insurers) {
     List<double> totalIncomePerInsurer = List.filled(999, 0.0);
     List<String> insurersNames = List.filled(999, '');
-    print('------------------End of report------------------');
-
     print('\x1b[1m-----------------------------------------------------------\n'
         '                 Income Report By Insurer\n'
         '-----------------------------------------------------------');

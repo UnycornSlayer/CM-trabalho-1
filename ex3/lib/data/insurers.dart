@@ -15,7 +15,7 @@ class Insurers {
   void add(Insurer insurer) {
     if (_insurers.any((i) => i.id == insurer.id)) {
       throw AlreadyExistingItemException(
-          'data/students[_students list]', insurer.id.toString());
+          'data/insurers[_insurers list]', insurer.id.toString());
     }
     _insurers.add(insurer);
   }
@@ -25,7 +25,7 @@ class Insurers {
 
     if (index == -1) {
       throw DoesntExistOnListException(
-          'data/students[_students list]', insurer.id.toString());
+          'data/insurers[_insurers list]', insurer.id.toString());
     }
     _insurers[index] = insurer;
   }
@@ -35,7 +35,7 @@ class Insurers {
     //print(insurer.activeContracts);
     if (index == -1) {
       throw DoesntExistOnListException(
-          'data/students[_students list]', insurer.id.toString());
+          'data/insurers[_insurers list]', insurer.id.toString());
     } else if (insurer.activeContracts.isNotEmpty) {
       throw CannotDeleteElementWithActiveContracts(
           'data/insurers[_insurers list]', insurer.name);
@@ -115,5 +115,24 @@ class Insurers {
 
     print(
         '\x1b[1m------------------------End of report----------------------\x1b[0m');
+  }
+
+  void listInsuers() {
+    print('\x1b[1m-----------------------------------------------------------\n'
+        '                        Insuers List\n'
+        '-----------------------------------------------------------');
+    print('Id\tName\t          Active Contracts\t  Inactive Contracts\n'
+        '-----------------------------------------------------------\x1b[0m');
+    _insurers.forEach((i) {
+      stdout.write('${i.id.toStringAsFixed(0).padRight(5)}\t');
+      stdout.write('${i.name.padRight(15)}\t');
+      stdout.write(
+          '${i.activeContracts.length.toStringAsFixed(0).padRight(20).padLeft(10)}\t');
+      stdout.write(
+          '${i.inactiveContracts.length.toStringAsFixed(0).padRight(10)}\t');
+      print("");
+    });
+    print(
+        '\x1b[1m-------------------------End of List-----------------------\x1b[0m');
   }
 }

@@ -76,6 +76,58 @@ void main(List<String> arguments) {
       Contract(3, 'car', DateTime(2024 - 02 - 22), 11000, 'OPEL Corsa',
           insurers.list[2], clients.list[2]),
     );
+
+    while (true) {
+      print('------------------------------------------------\n');
+      print('           Surpresas existem!\n');
+      print('------------------------------------------------\n');
+      print(' 1 - Quantity of active and inactive contracts');
+      print(' 2 - Average anual fee for active contracts per insurer');
+      print(' 3 - Average anual fee for active contracts per type');
+      print(' 4 - Client Management');
+      print(' 5 - Insurer Management');
+      print(' 6 - Contract Management');
+      print(' 7 - Exit program');
+      print('------------------------------------------------\n');
+      int? op = int.parse(stdin.readLineSync()!);
+      switch (op) {
+        case 1:
+          int numActive = insurers.quantityActiveContracts(insurers);
+          int numInactive = insurers.quantityInactiveContracts(insurers);
+          print('Number of active contracts: $numActive');
+          print('Number of inactive contracts: $numInactive ');
+          break;
+
+        case 2:
+          for (var insurer in insurers.list) {
+            insurers.averageIncomePerInsurer(insurer);
+          }
+          break;
+
+        case 3:
+          List types = ['car', 'health', 'life'];
+          for (var type in types) {
+            insurers.averageIncomePerType(insurers, type);
+          }
+          break;
+
+        case 4:
+          clients = manageClients(clients);
+          break;
+
+        case 5:
+          insurers = manageInsurers(insurers);
+          break;
+
+        case 6:
+          //TODO : manage contracts menu
+          // contracts = manageContracts(contracts);
+          break;
+        default:
+          print('\n\n\nSee you soon!! :)');
+          exit(5);
+      }
+    }
   } on AlreadyExistingItemException catch (e, f) {
     print(e.errorMessage());
     print(f);
@@ -85,58 +137,6 @@ void main(List<String> arguments) {
   } on CannotDeleteElementWithActiveContracts catch (e, f) {
     print(e.errorMessage());
     print(f);
-  }
-
-  while (true) {
-    print('------------------------------------------------\n');
-    print('           Surpresas existem!\n');
-    print('------------------------------------------------\n');
-    print(' 1 - Quantity of active and inactive contracts');
-    print(' 2 - Average anual fee for active contracts per insurer');
-    print(' 3 - Average anual fee for active contracts per type');
-    print(' 4 - Client Management');
-    print(' 5 - Insurer Management');
-    print(' 6 - Contract Management');
-    print(' 7 - Exit program');
-    print('------------------------------------------------\n');
-    int? op = int.parse(stdin.readLineSync()!);
-    switch (op) {
-      case 1:
-        int numActive = insurers.quantityActiveContracts(insurers);
-        int numInactive = insurers.quantityInactiveContracts(insurers);
-        print('Number of active contracts: $numActive');
-        print('Number of inactive contracts: $numInactive ');
-        break;
-
-      case 2:
-        for (var insurer in insurers.list) {
-          insurers.averageIncomePerInsurer(insurer);
-        }
-        break;
-
-      case 3:
-        List types = ['car', 'health', 'life'];
-        for (var type in types) {
-          insurers.averageIncomePerType(insurers, type);
-        }
-        break;
-
-      case 4:
-        clients = manageClients(clients);
-        break;
-
-      case 5:
-        insurers = manageInsurers(insurers);
-        break;
-
-      case 6:
-        //TODO : manage contracts menu
-        // contracts = manageContracts(contracts);
-        break;
-      default:
-        print('\n\n\nSee you soon!! :)');
-        exit(5);
-    }
   }
 }
 
@@ -174,7 +174,7 @@ Persons manageClients(Persons clients) {
         break;
 
       case 2:
-        // TODO:List every client
+        clients.listPersons();
         print('Type Id of the client to update: ');
         int id = int.parse(stdin.readLineSync()!);
         var index = clients.list.indexWhere((c) => c.id == id);
@@ -189,7 +189,7 @@ Persons manageClients(Persons clients) {
         break;
 
       case 3:
-        // TODO:List every client
+        clients.listPersons();
         print('Type Id of the client to delete: ');
         int id = int.parse(stdin.readLineSync()!);
         var index = clients.list.indexWhere((c) => c.id == id);
@@ -197,7 +197,7 @@ Persons manageClients(Persons clients) {
         break;
 
       case 4:
-        // TODO:list every client
+        clients.listPersons();
         break;
 
       case 5:
@@ -233,7 +233,7 @@ Insurers manageInsurers(Insurers insurers) {
         break;
 
       case 2:
-        // TODO: List every insurer
+        insurers.listInsuers();
         print('Type Id of the insurer to update: ');
         int id = int.parse(stdin.readLineSync()!);
         var index = insurers.list.indexWhere((c) => c.id == id);
@@ -246,7 +246,7 @@ Insurers manageInsurers(Insurers insurers) {
         break;
 
       case 3:
-        // TODO: List every Insurer
+        insurers.listInsuers();
         print('Type Id of the insurer to delete: ');
         int id = int.parse(stdin.readLineSync()!);
         var index = insurers.list.indexWhere((i) => i.id == id);
@@ -254,7 +254,7 @@ Insurers manageInsurers(Insurers insurers) {
         break;
 
       case 4:
-        // TODO: List every insurer
+        insurers.listInsuers();
         break;
 
       case 5:
@@ -265,3 +265,61 @@ Insurers manageInsurers(Insurers insurers) {
     }
   }
 }
+
+// Insurers manageContracts(Contracts contracts) {
+//   while (true) {
+//     print('------------------------------------------------\n');
+//     print('           Contracts Management\n');
+//     print('------------------------------------------------\n');
+//     print(' 1 - Create new contract');
+//     print(' 2 - Update existing contract');
+//     print(' 3 - Remove existing contract');
+//     print(' 3 - make contract inactive');
+//     print(' 4 - List every contract');
+//     print(' 5 - See Income report per contract');
+//     print(' 6 - Exit insurer management');
+//     print('------------------------------------------------\n');
+//     int? op = int.parse(stdin.readLineSync()!);
+//     switch (op) {
+//       case 1:
+//         print('Insurer name:');
+//         String name = stdin.readLineSync()!;
+//         contracts.add(
+//             Contract(
+//               (contracts.list[contracts.list.length - 1].id + 1), name, [], []),
+//         );
+//         break;
+
+//       case 2:
+//         // TODO: List every insurer
+//         print('Type Id of the insurer to update: ');
+//         int id = int.parse(stdin.readLineSync()!);
+//         var index = insurers.list.indexWhere((c) => c.id == id);
+//         print('Insurer name:');
+//         String name = stdin.readLineSync()!;
+//         insurers.update(
+//           Insurer(id, name, insurers.list[index].activeContracts,
+//               insurers.list[index].inactiveContracts),
+//         );
+//         break;
+
+//       case 3:
+//         // TODO: List every Insurer
+//         print('Type Id of the insurer to delete: ');
+//         int id = int.parse(stdin.readLineSync()!);
+//         var index = insurers.list.indexWhere((i) => i.id == id);
+//         insurers.delete(insurers.list[index]);
+//         break;
+
+//       case 4:
+//         // TODO: List every insurer
+//         break;
+
+//       case 5:
+//         insurers.incomeReportPerInsurer(insurers);
+//         break;
+//       default:
+//         return insurers;
+//     }
+//   }
+// }

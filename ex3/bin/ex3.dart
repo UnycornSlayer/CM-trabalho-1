@@ -378,6 +378,7 @@ Contracts manageContracts(
 
       case 3:
         //remove
+        // TODO: List contracts
         print('Type Id of the contract to delete: ');
         int id = int.parse(stdin.readLineSync()!);
         var index = contracts.list.indexWhere((i) => i.id == id);

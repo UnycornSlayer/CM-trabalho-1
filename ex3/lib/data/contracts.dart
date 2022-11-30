@@ -70,7 +70,6 @@ class Contracts {
     var carContracts = [];
     var healthContracts = [];
     var lifeContracts = [];
-    print('------------Income report per Type------------');
     for (var contract in contracts.list) {
       if (contract.insurer.activeContracts.contains(contract)) {
         switch (contract.type) {

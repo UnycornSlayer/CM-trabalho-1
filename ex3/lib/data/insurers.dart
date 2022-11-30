@@ -40,7 +40,6 @@ class Insurers {
       throw CannotDeleteElementWithActiveContracts(
           'data/insurers[_insurers list]', insurer.name);
     }
-    // TODO: cant remove if has active contracts
     _insurers.removeAt(index);
   }
 

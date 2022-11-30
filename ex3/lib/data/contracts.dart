@@ -1,7 +1,4 @@
 import 'dart:io';
-
-import 'package:ex3/data/insurers.dart';
-
 import '../exceptions/already_existing_item_exception.dart';
 import '../exceptions/doesnt_exist_on_list_exception.dart';
 import '../models/contract.dart';
@@ -41,7 +38,6 @@ class Contracts {
       throw DoesntExistOnListException(
           'data/students[_students list]', contract.id.toString());
     }
-    // TODO: cant remove if has active contracts
     _contracts.removeAt(index);
   }
 

@@ -41,7 +41,6 @@ class Persons {
       throw CannotDeleteElementWithActiveContracts(
           'data/persons[_persons list]', person.name);
     }
-    // TODO: cant remove if has active contracts
     _persons.removeAt(index);
   }
 
@@ -74,6 +73,7 @@ class Persons {
         '-----------------------------------------------------------');
     print('Id\tName\t Age\t    Address\t  Active Contracts\n'
         '-----------------------------------------------------------\x1b[0m');
+    // ignore: avoid_function_literals_in_foreach_calls
     _persons.forEach((p) {
       stdout.write('${p.id.toStringAsFixed(0).padRight(5)}\t');
       stdout.write('${p.name.padRight(6)}\t');

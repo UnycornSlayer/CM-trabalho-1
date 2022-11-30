@@ -1,8 +1,5 @@
 import 'package:ex3/exceptions/cannot_delete_element_with_active_contracts.dart';
 import 'dart:io';
-
-import 'package:ex3/models/contract.dart';
-
 import '../exceptions/already_existing_item_exception.dart';
 import '../exceptions/doesnt_exist_on_list_exception.dart';
 import '../models/insurer.dart';
@@ -117,12 +114,14 @@ class Insurers {
         '\x1b[1m------------------------End of report----------------------\x1b[0m');
   }
 
-  void listInsuers() {
+  /// Function to list every Insurer
+  void listInsurers() {
     print('\x1b[1m-----------------------------------------------------------\n'
         '                        Insuers List\n'
         '-----------------------------------------------------------');
     print('Id\tName\t          Active Contracts\t  Inactive Contracts\n'
         '-----------------------------------------------------------\x1b[0m');
+    // ignore: avoid_function_literals_in_foreach_calls
     _insurers.forEach((i) {
       stdout.write('${i.id.toStringAsFixed(0).padRight(5)}\t');
       stdout.write('${i.name.padRight(15)}\t');

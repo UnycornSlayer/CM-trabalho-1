@@ -120,8 +120,7 @@ void main(List<String> arguments) {
           break;
 
         case 6:
-          //TODO : manage contracts menu
-          // contracts = manageContracts(contracts);
+          contracts = manageContracts(contracts, insurers, clients);
           break;
         default:
           print('\n\n\nSee you soon!! :)');
@@ -137,14 +136,6 @@ void main(List<String> arguments) {
   } on CannotDeleteElementWithActiveContracts catch (e, f) {
     print(e.errorMessage());
     print(f);
-  }
-}
-
-void printLists(List list) {
-  // Format to make it look like a table
-  print('------- SUMMARY (finally block) -------');
-  for (var s in list) {
-    print(s);
   }
 }
 
@@ -233,7 +224,7 @@ Insurers manageInsurers(Insurers insurers) {
         break;
 
       case 2:
-        insurers.listInsuers();
+        insurers.listInsurers();
         print('Type Id of the insurer to update: ');
         int id = int.parse(stdin.readLineSync()!);
         var index = insurers.list.indexWhere((c) => c.id == id);
@@ -246,7 +237,7 @@ Insurers manageInsurers(Insurers insurers) {
         break;
 
       case 3:
-        insurers.listInsuers();
+        insurers.listInsurers();
         print('Type Id of the insurer to delete: ');
         int id = int.parse(stdin.readLineSync()!);
         var index = insurers.list.indexWhere((i) => i.id == id);
@@ -254,7 +245,7 @@ Insurers manageInsurers(Insurers insurers) {
         break;
 
       case 4:
-        insurers.listInsuers();
+        insurers.listInsurers();
         break;
 
       case 5:
@@ -266,60 +257,147 @@ Insurers manageInsurers(Insurers insurers) {
   }
 }
 
-// Insurers manageContracts(Contracts contracts) {
-//   while (true) {
-//     print('------------------------------------------------\n');
-//     print('           Contracts Management\n');
-//     print('------------------------------------------------\n');
-//     print(' 1 - Create new contract');
-//     print(' 2 - Update existing contract');
-//     print(' 3 - Remove existing contract');
-//     print(' 3 - make contract inactive');
-//     print(' 4 - List every contract');
-//     print(' 5 - See Income report per contract');
-//     print(' 6 - Exit insurer management');
-//     print('------------------------------------------------\n');
-//     int? op = int.parse(stdin.readLineSync()!);
-//     switch (op) {
-//       case 1:
-//         print('Insurer name:');
-//         String name = stdin.readLineSync()!;
-//         contracts.add(
-//             Contract(
-//               (contracts.list[contracts.list.length - 1].id + 1), name, [], []),
-//         );
-//         break;
+Contracts manageContracts(
+    Contracts contracts, Insurers insurers, Persons persons) {
+  while (true) {
+    String type = '';
+    print('------------------------------------------------\n');
+    print('           Contracts Management\n');
+    print('------------------------------------------------\n');
+    print(' 1 - Create new contract');
+    print(' 2 - Update existing contract');
+    print(' 3 - Remove existing contract');
+    print(' 4 - Make contract inactive');
+    print(' 5 - See Income report per contract');
+    print(' 6 - Exit insurer management');
+    print('------------------------------------------------\n');
+    int? op = int.parse(stdin.readLineSync()!);
+    switch (op) {
+      //create
+      case 1:
+        print('Type of contract:');
+        print(' 1 - Car');
+        print(' 2 - Health');
+        print(' 3 - Life');
+        int? op = int.parse(stdin.readLineSync()!);
+        switch (op) {
+          case 1:
+            type = 'car';
+            break;
+          case 2:
+            type = 'health';
+            break;
+          case 3:
+            type = 'life';
+            break;
+        }
 
-//       case 2:
-//         // TODO: List every insurer
-//         print('Type Id of the insurer to update: ');
-//         int id = int.parse(stdin.readLineSync()!);
-//         var index = insurers.list.indexWhere((c) => c.id == id);
-//         print('Insurer name:');
-//         String name = stdin.readLineSync()!;
-//         insurers.update(
-//           Insurer(id, name, insurers.list[index].activeContracts,
-//               insurers.list[index].inactiveContracts),
-//         );
-//         break;
+        print('Expiration date (yyyy-MM-dd): ');
+        String date = stdin.readLineSync()!;
 
-//       case 3:
-//         // TODO: List every Insurer
-//         print('Type Id of the insurer to delete: ');
-//         int id = int.parse(stdin.readLineSync()!);
-//         var index = insurers.list.indexWhere((i) => i.id == id);
-//         insurers.delete(insurers.list[index]);
-//         break;
+        print('Anual fee:');
+        double fee = double.parse(stdin.readLineSync()!);
 
-//       case 4:
-//         // TODO: List every insurer
-//         break;
+        print('What / who is being insured?');
+        String insured = stdin.readLineSync()!;
 
-//       case 5:
-//         insurers.incomeReportPerInsurer(insurers);
-//         break;
-//       default:
-//         return insurers;
-//     }
-//   }
-// }
+        persons.listPersons();
+        print('Type the ID of the client to associate:');
+        int pID = int.parse(stdin.readLineSync()!);
+        int pIndex = contracts.list.indexWhere((c) => c.id == pID);
+
+        insurers.listInsurers();
+        print('Type the ID of the insurer to associate:');
+        int iID = int.parse(stdin.readLineSync()!);
+        int iIndex = contracts.list.indexWhere((i) => i.id == iID);
+
+        contracts.add(
+          Contract(
+              contracts.list[contracts.list.length - 1].id,
+              type,
+              DateTime.parse('$date 00:00:00.000'),
+              fee,
+              insured,
+              insurers.list[iIndex],
+              persons.list[pIndex]),
+        );
+        break;
+
+      case 2:
+        //update
+        //TODO: List contracts
+        print('Type Id of the contract to update: ');
+        int id = int.parse(stdin.readLineSync()!);
+
+        print('Type of contract:');
+        print(' 1 - Car');
+        print(' 2 - Health');
+        print(' 3 - Life');
+        int? op = int.parse(stdin.readLineSync()!);
+        switch (op) {
+          case 1:
+            type = 'car';
+            break;
+          case 2:
+            type = 'health';
+            break;
+          case 3:
+            type = 'life';
+            break;
+        }
+
+        print('Expiration date (yyyy-MM-dd): ');
+        String date = stdin.readLineSync()!;
+
+        print('Anual fee:');
+        double fee = double.parse(stdin.readLineSync()!);
+
+        print('What / who is being insured?');
+        String insured = stdin.readLineSync()!;
+
+        persons.listPersons();
+        print('Type the ID of the client to associate:');
+        int pID = int.parse(stdin.readLineSync()!);
+        int pIndex = contracts.list.indexWhere((c) => c.id == pID);
+
+        insurers.listInsurers();
+        print('Type the ID of the insurer to associate:');
+        int iID = int.parse(stdin.readLineSync()!);
+        int iIndex = contracts.list.indexWhere((i) => i.id == iID);
+
+        contracts.update(Contract(
+          id,
+          type,
+          DateTime.parse('$date 00:00:00.000'),
+          fee,
+          insured,
+          insurers.list[iIndex],
+          persons.list[pIndex],
+        ));
+        break;
+
+      case 3:
+        //remove
+        print('Type Id of the contract to delete: ');
+        int id = int.parse(stdin.readLineSync()!);
+        var index = contracts.list.indexWhere((i) => i.id == id);
+        contracts.delete(contracts.list[index]);
+        break;
+
+      case 4:
+        //make contract inactive
+        print('Type Id of the contract to delete: ');
+        int id = int.parse(stdin.readLineSync()!);
+        var index = contracts.list.indexWhere((i) => i.id == id);
+        contracts.makeInactive(contracts.list[index]);
+        break;
+
+      case 5:
+        // income per type report
+        contracts.incomePerType(contracts);
+        break;
+      default:
+        return contracts;
+    }
+  }
+}

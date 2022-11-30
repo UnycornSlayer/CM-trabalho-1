@@ -387,7 +387,7 @@ Contracts manageContracts(
 
       case 4:
         //make contract inactive
-        print('Type Id of the contract to delete: ');
+        print('Type Id of the contract to make inactive: ');
         int id = int.parse(stdin.readLineSync()!);
         var index = contracts.list.indexWhere((i) => i.id == id);
         contracts.makeInactive(contracts.list[index]);

@@ -325,7 +325,7 @@ Contracts manageContracts(
 
       case 2:
         //update
-        //TODO: List contracts
+        contracts.listContracts();
         print('Type Id of the contract to update: ');
         int id = int.parse(stdin.readLineSync()!);
 
@@ -377,8 +377,8 @@ Contracts manageContracts(
         break;
 
       case 3:
-        //remove
-        // TODO: List contracts
+        //delete
+        contracts.listContracts();
         print('Type Id of the contract to delete: ');
         int id = int.parse(stdin.readLineSync()!);
         var index = contracts.list.indexWhere((i) => i.id == id);
@@ -386,7 +386,7 @@ Contracts manageContracts(
         break;
 
       case 4:
-        //make contract inactive
+        contracts.listContracts();
         print('Type Id of the contract to delete: ');
         int id = int.parse(stdin.readLineSync()!);
         var index = contracts.list.indexWhere((i) => i.id == id);

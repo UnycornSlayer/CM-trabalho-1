@@ -110,4 +110,25 @@ class Contracts {
             : ''));
     print('\x1b[1m----------------End of report----------------\x1b[0m');
   }
+
+  void listContracts() {
+    print(
+        '\x1b[1m---------------------------------------------------------------------------\n'
+        '                              Contracts List\n'
+        '---------------------------------------------------------------------------');
+    print('Id\tTaker Name\tInsurer Name\t Insured\t Type\t Anual Fee\n'
+        '---------------------------------------------------------------------------\x1b[0m');
+    // ignore: avoid_function_literals_in_foreach_calls
+    _contracts.forEach((c) {
+      stdout.write('${c.id.toStringAsFixed(0).padRight(7)}\t');
+      stdout.write('${c.taker.name.padRight(8)}\t');
+      stdout.write('${c.insurer.name.padRight(15)}\t');
+      stdout.write('${c.insured.padRight(10).padLeft(7)}\t');
+      stdout.write('${c.type.padRight(7)}\t');
+      stdout.write('${c.anualFee.toStringAsFixed(0).padLeft(7)}\t');
+      print("");
+    });
+    print(
+        '\x1b[1m---------------------------------End of List-------------------------------\x1b[0m');
+  }
 }
